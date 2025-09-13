@@ -40,7 +40,7 @@
     const beta = event.beta;
     const gamma = event.gamma;
     // Save all three variables
-
+    alert(test);
     // THIS IS JUST USED TO PRINT THE VARIABLES (alpha, beta, gamma) - ITS NOT IN THE ONLINE VERSION
     output.textContent  = `alpha : ${alpha}\n`;
     output.textContent += `beta : ${beta}\n`;
@@ -68,6 +68,7 @@
 
   //This function is responsible for requesting permission from the user to access device orientation data. On some browsers, particularly on iOS (Safari), access to motion and orientation data is restricted and requires explicit user consent. The function handles this permission request.
   function requestOrientationPermission() {
+      if(typeof DeviceOrientationEvent.requestOrientationPermission === "function"){
           DeviceOrientationEvent.requestPermission()
           .then(response => {
               if (response == 'granted') {
@@ -75,7 +76,10 @@
                     //EventListener that is all the time active
               }
           })
-      .catch(console.error)
+          .catch(console.error);
+      }else{
+          window.addEventListener('deviceorientation', handleOrientation);
+      }
   }
 
   </script>
