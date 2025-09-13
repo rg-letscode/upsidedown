@@ -46,20 +46,12 @@
   }
   // THE DATA
   function handleOrientation(event) {
-    var alpha, beta, gamma, platform;
-    //get platform
-    platform = getPlatform();
+    var alpha, beta, gamma;
     
     // Save all three variables
-    if(platform === "ios"){
-        alpha = event.alpha;
-        beta = event.beta;
-        gamma = event.gamma;
-    }else{
-        beta = event.x;
-        gamma = event.y;
-        alpha = event.z;
-    }
+    alpha = event.alpha;
+    beta = event.beta;
+    gamma = event.gamma;
     alert("test");
     // THIS IS JUST USED TO PRINT THE VARIABLES (alpha, beta, gamma) - ITS NOT IN THE ONLINE VERSION
     output.textContent  = `alpha : ${alpha}\n`;
@@ -101,8 +93,27 @@
           if (getPlatform() === "android"){
             alert("dd");
             var gyroscope = new Gyroscope({frequency: 60});
+            var lastTime = null;
+            let obj = new Object();
+            obj.alpha = 0;
+            obj.beta = 0;
+            obj.gamma = 0;
 
-            gyroscope.addEventListener('reading', handleOrientation);
+            gyroscope.addEventListener('reading', () =>{
+              if (lastTime) {
+                const dt = (performance.now() - lastTime) / 1000; // seconds
+                obj.alpha += gyroscope.z * dt;
+                obj.beta  += gyroscope.x * dt;
+                obj.gamma += gyroscope.y * dt;
+              }
+              lastTime = performance.now();
+
+              //radians to degrees
+              obj.alpha = obj.alpha * 180 / Math.PI;
+              obj.beta = obj.beta * 180 / Math.PI;
+              obj.gamma = obj.gamma * 180 / Math.PI;
+              handleOrientation(obj);
+            });
             gyroscope.start();
           }
       }
