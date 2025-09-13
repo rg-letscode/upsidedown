@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<style>
+body {
+  background-image: url('img/realworld.jpeg');
+  background-color: #000000;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+h1 {
+  color: #FFFFFF;
+}
+</style>
+</head>
+<body>
+
+  <pre class="output" style="color: #FFFFFF; align: center"></pre>
+  <!-- THIS <pre> IS JUST USED TO PRINT THE VARIABLES (alpha, beta, gamma) - ITS NOT IN THE ONLINE VERSION -->
+
+  <center><h1 id="realworld">You are in the real world!</h1></center>
+  <center><h1 id="upsidedown" style="display: none">You are in the upside-down!</h1></center>
+
+
+  <script type="text/javascript">
+  const output = document.querySelector('.output');
+
+  // THE DATA
+  function handleOrientation(event) {
+    const alpha = event.alpha;
+    const beta = event.beta;
+    const gamma = event.gamma;
+    // Save all three variables
+
+    // THIS IS JUST USED TO PRINT THE VARIABLES (alpha, beta, gamma) - ITS NOT IN THE ONLINE VERSION
+    output.textContent  = `alpha : ${alpha}\n`;
+    output.textContent += `beta : ${beta}\n`;
+    output.textContent += `gamma: ${gamma}\n`;
+
+    if (beta > -125 && beta < -55) { // THE MODEL
+      document.body.style.backgroundImage = "url('img/upsidedown.jpeg')"; // THE ACTION
+      document.getElementById("realworld").style.display = "none";
+      document.getElementById("upsidedown").style.display = "inline";
+
+    }
+    else {
+      document.body.style.backgroundImage = "url('img/realworld.jpeg')"; // THE ACTION
+      document.getElementById("upsidedown").style.display = "none";
+      document.getElementById("realworld").style.display = "inline";
+    }
+
+  }
+
+  window.addEventListener('deviceorientation', handleOrientation); // GETTING THE DATA
+  // This line sets up an event listener on the window object. The event listener listens for deviceorientation events. These events are triggered when the physical orientation of the device changes (i.e., tilting, rotating, or moving the device).
+  //window: Refers to the global object representing the browser's window or tab.
+  //deviceorientation: This is a specific event that is fired whenever the orientation of the device (in terms of pitch, roll, and yaw) changes.
+  //handleOrientation: This is the callback function that will be called whenever a deviceorientation event is fired. You would typically define this function elsewhere in your script to process the orientation data (though it's not shown in this snippet).
+
+  //This function is responsible for requesting permission from the user to access device orientation data. On some browsers, particularly on iOS (Safari), access to motion and orientation data is restricted and requires explicit user consent. The function handles this permission request.
+  function requestOrientationPermission() {
+          DeviceOrientationEvent.requestPermission()
+          .then(response => {
+              if (response == 'granted') {
+                  window.addEventListener('deviceorientation', handleOrientation);
+                    //EventListener that is all the time active
+              }
+          })
+      .catch(console.error)
+  }
+
+  </script>
+  
+    <center><button onclick='requestOrientationPermission();'>iOS/android permission request</button></center>
+
+</body>
+</html>
