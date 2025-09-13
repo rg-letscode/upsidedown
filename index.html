@@ -33,13 +33,33 @@
 
   <script type="text/javascript">
   const output = document.querySelector('.output');
+  function getPlatform() {
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
 
+    if (/android/i.test(ua)) {
+      return "android";
+    }
+    if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+      return "ios";
+    }
+    return "other";
+  }
   // THE DATA
   function handleOrientation(event) {
-    const alpha = event.alpha;
-    const beta = event.beta;
-    const gamma = event.gamma;
+    var alpha, beta, gamma, platform;
+    //get platform
+    platform = getPlatform();
+    
     // Save all three variables
+    if(platform === "ios"){
+        alpha = event.alpha;
+        beta = event.beta;
+        gamma = event.gamma;
+    }else{
+        beta = event.x;
+        gamma = event.y;
+        alpha = event.z;
+    }
     alert("test");
     // THIS IS JUST USED TO PRINT THE VARIABLES (alpha, beta, gamma) - ITS NOT IN THE ONLINE VERSION
     output.textContent  = `alpha : ${alpha}\n`;
@@ -78,7 +98,13 @@
           })
           .catch(console.error);
       }else{
-          window.addEventListener('deviceorientation', handleOrientation);
+          if (getPlatform() === "android"){
+            alert("dd");
+            var gyroscope = new Gyroscope({frequency: 60});
+
+            gyroscope.addEventListener('reading', handleOrientation);
+            gyroscope.start();
+          }
       }
   }
 
