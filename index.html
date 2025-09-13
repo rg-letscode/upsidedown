@@ -52,7 +52,7 @@
     alpha = event.alpha;
     beta = event.beta;
     gamma = event.gamma;
-    alert("test");
+    
     // THIS IS JUST USED TO PRINT THE VARIABLES (alpha, beta, gamma) - ITS NOT IN THE ONLINE VERSION
     output.textContent  = `alpha : ${alpha}\n`;
     output.textContent += `beta : ${beta}\n`;
@@ -91,7 +91,7 @@
           .catch(console.error);
       }else{
           if (getPlatform() === "android"){
-            alert("dd");
+            
             var gyroscope = new Gyroscope({frequency: 60});
             var lastTime = null;
             let obj = new Object();
