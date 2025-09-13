@@ -46,12 +46,9 @@
   }
   // THE DATA
   function handleOrientation(event) {
-    var alpha, beta, gamma;
-    
-    // Save all three variables
-    alpha = event.alpha;
-    beta = event.beta;
-    gamma = event.gamma;
+    const alpha = event.alpha;
+    const beta = event.beta;
+    const gamma = event.gamma;
     
     // THIS IS JUST USED TO PRINT THE VARIABLES (alpha, beta, gamma) - ITS NOT IN THE ONLINE VERSION
     output.textContent  = `alpha : ${alpha}\n`;
@@ -72,7 +69,7 @@
 
   }
 
-    // window.addEventListener('deviceorientation', handleOrientation); // GETTING THE DATA
+    window.addEventListener('deviceorientation', handleOrientation); // GETTING THE DATA
   // This line sets up an event listener on the window object. The event listener listens for deviceorientation events. These events are triggered when the physical orientation of the device changes (i.e., tilting, rotating, or moving the device).
   //window: Refers to the global object representing the browser's window or tab.
   //deviceorientation: This is a specific event that is fired whenever the orientation of the device (in terms of pitch, roll, and yaw) changes.
@@ -92,7 +89,6 @@
       }else{
           var platform = getPlatform();
           if (platform === "android"){
-            
             var gyroscope = new Gyroscope({frequency: 60});
             var lastTime = null;
             let obj = new Object();
