@@ -90,7 +90,8 @@
           })
           .catch(console.error);
       }else{
-          if (getPlatform() === "android"){
+          var platform = getPlatform();
+          if (platform === "android"){
             
             var gyroscope = new Gyroscope({frequency: 60});
             var lastTime = null;
