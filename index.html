@@ -78,6 +78,7 @@
   //This function is responsible for requesting permission from the user to access device orientation data. On some browsers, particularly on iOS (Safari), access to motion and orientation data is restricted and requires explicit user consent. The function handles this permission request.
   function requestOrientationPermission() {
       if(typeof DeviceOrientationEvent.requestOrientationPermission === "function"){
+        alert ("ios");
           DeviceOrientationEvent.requestPermission()
           .then(response => {
               if (response == 'granted') {
@@ -87,7 +88,7 @@
           })
           .catch(console.error);
       }else{
-          var platform = getPlatform();
+        /* var platform = getPlatform();
           if (platform === "android"){
             var gyroscope = new Gyroscope({frequency: 60});
             var lastTime = null;
@@ -112,7 +113,7 @@
               handleOrientation(obj);
             });
             gyroscope.start();
-          }
+          }*/
       }
   }
 
