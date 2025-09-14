@@ -79,7 +79,6 @@
   function requestOrientationPermission() {
     var platform = getPlatform();
       if(platform === "ios"){
-          alert ("ios");
           DeviceOrientationEvent.requestPermission()
           .then(response => {
               if (response == 'granted') {
@@ -89,39 +88,11 @@
           })
           .catch(console.error);
       }else{
-        /* var platform = getPlatform();
-          if (platform === "android"){
-            var gyroscope = new Gyroscope({frequency: 60});
-            var lastTime = null;
-            let obj = new Object();
-            obj.alpha = 0;
-            obj.beta = 0;
-            obj.gamma = 0;
-
-            gyroscope.addEventListener('reading', () =>{
-              if (lastTime) {
-                const dt = (performance.now() - lastTime) / 1000; // seconds
-                obj.alpha += gyroscope.z * dt;
-                obj.beta  += gyroscope.x * dt;
-                obj.gamma += gyroscope.y * dt;
-              }
-              lastTime = performance.now();
-
-              //radians to degrees
-              obj.alpha = obj.alpha * 180 / Math.PI;
-              obj.beta = obj.beta * 180 / Math.PI;
-              obj.gamma = obj.gamma * 180 / Math.PI;
-              handleOrientation(obj);
-            });
-            gyroscope.start();
-          }*/
           window.addEventListener('deviceorientation', handleOrientation);
       }
   }
 
   </script>
-  
-    <center><button onclick='requestOrientationPermission();'>iOS/android permission request</button></center>
-
+    <center><button onclick='requestOrientationPermission();'>Click here to find where you are...</button></center>
 </body>
 </html>
