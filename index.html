@@ -69,7 +69,7 @@
 
   }
 
-    window.addEventListener('deviceorientation', handleOrientation); // GETTING THE DATA
+    // window.addEventListener('deviceorientation', handleOrientation); // GETTING THE DATA
   // This line sets up an event listener on the window object. The event listener listens for deviceorientation events. These events are triggered when the physical orientation of the device changes (i.e., tilting, rotating, or moving the device).
   //window: Refers to the global object representing the browser's window or tab.
   //deviceorientation: This is a specific event that is fired whenever the orientation of the device (in terms of pitch, roll, and yaw) changes.
@@ -77,8 +77,9 @@
 
   //This function is responsible for requesting permission from the user to access device orientation data. On some browsers, particularly on iOS (Safari), access to motion and orientation data is restricted and requires explicit user consent. The function handles this permission request.
   function requestOrientationPermission() {
-      if(typeof DeviceOrientationEvent.requestOrientationPermission === "function"){
-        alert ("ios");
+    var platform = getPlatform();
+      if(platform === "ios"){
+          alert ("ios");
           DeviceOrientationEvent.requestPermission()
           .then(response => {
               if (response == 'granted') {
@@ -114,6 +115,7 @@
             });
             gyroscope.start();
           }*/
+          window.addEventListener('deviceorientation', handleOrientation);
       }
   }
 
