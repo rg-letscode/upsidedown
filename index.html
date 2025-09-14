@@ -20,6 +20,17 @@
   h1 {
     color: #FFFFFF;
   }
+  #my-btn {
+    background-color: #4CAF50;  
+    color: white;               
+    padding: 12px 24px;         
+    border: none;                
+    border-radius: 8px;         
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;             
+    transition: background-color 0.3s, transform 0.2s;
+  }
 </style>
 </head>
 <body>
@@ -93,6 +104,6 @@
   }
 
   </script>
-    <center><button onclick='requestOrientationPermission();'>Click here to find where you are...</button></center>
+    <center><button id='my-btn' onclick='requestOrientationPermission();'>Click here to find where you are...</button></center>
 </body>
 </html>
